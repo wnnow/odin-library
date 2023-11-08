@@ -19,54 +19,86 @@
       <div class="content-container">
         <button class="add-book-btn">NEW BOOK</button>
         <div class="card-container">
-          <div class="card">
+          <div class="card" data-read="false">
             <div class="book-title">Harry Potter</div>
             <div class="book-author">J.K. Rowling</div>
             <div class="book-page-no">236 pages</div>
-            <div class="reading-status" data-read="true">Read</div>
+            <div class="reading-status">Read</div>
             <button type="button">
               <span class="material-symbols-outlined"> close </span>
             </button>
           </div>
-          <div class="card">
+          <div class="card" data-read="false">
             <div class="book-title">Harry Potter</div>
             <div class="book-author">J.K. Rowling</div>
-            <div class="book-page-no">236</div>
-            <div class="reading-status" data-read="true">Read</div>
+            <div class="book-page-no">236 pages</div>
+            <div class="reading-status" x>Read</div>
+            <button type="button">
+              <span class="material-symbols-outlined"> close </span>
+            </button>
           </div>
-          <div class="card">
+          <div class="card" data-read="false">
             <div class="book-title">Harry Potter</div>
             <div class="book-author">J.K. Rowling</div>
-            <div class="book-page-no">236</div>
-            <div class="reading-status" data-read="true">Read</div>
+            <div class="book-page-no">236 pages</div>
+            <div class="reading-status" x>Read</div>
+            <button type="button">
+              <span class="material-symbols-outlined"> close </span>
+            </button>
           </div>
-          <div class="card">
+          <div class="card" data-read="false">
             <div class="book-title">Harry Potter</div>
             <div class="book-author">J.K. Rowling</div>
-            <div class="book-page-no">236</div>
-            <div class="reading-status" data-read="true">Read</div>
+            <div class="book-page-no">236 pages</div>
+            <div class="reading-status" x>Read</div>
+            <button type="button">
+              <span class="material-symbols-outlined"> close </span>
+            </button>
           </div>
         </div>
       </div>
-      <div class="footer-container">Copyright</div>
-      <div class="form-input">
-        <form action="">
-          <div>
-            <label for="book_title">Book Title: </label>
+      <div class="footer-container">
+        <a href=""
+          ><img src="./images/github-mark-white.png" alt="github logo"
+        /></a>
+      </div>
+      <div>
+        <form action="" class="form-input">
+          <div class="input-container">
+            <label for="book_title">Book Title </label>
             <input type="text" id="book_title" name="book_title" />
           </div>
           <div>
-            <label for="book_author">Author: </label>
+            <label for="book_author">Author</label>
             <input type="text" id="book_author" name="book_author" />
           </div>
 
           <div>
-            <label for="book_page_no">Page: </label>
+            <label for="book_page_no">Pages</label>
             <input type="number" id="book_page_no" name="book_page_no" />
           </div>
           <div>
-            <label for="reading_status">Reading Status:</label>
-            <input type="checkbox" id="reading_status" name="reading_status" />
+            <span class="reading-status-form-text">Read status</span>
+            <div class="radio-container">
+              <input
+                type="radio"
+                id="read"
+                name="reading_status"
+                value="read"
+              />
+              <label for="read">Yes</label>
+              <input
+                type="radio"
+                id="unread"
+                name="reading_status"
+                value="unread"
+              />
+              <label for="unread">No</label>
+            </div>
+          </div>
+          <div class="form-btn-container">
+            <button type="submit" class="form-submit-btn">Submit</button>
+            <button type="button" class="form-back-btn">Back</button>
           </div>
         </form>
       </div>
