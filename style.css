@@ -155,7 +155,7 @@ button {
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: var(--background-color);
-  /* display: none; */
+  display: none;
 }
 
 .form-input input[type="text"],
