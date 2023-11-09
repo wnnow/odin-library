@@ -92,9 +92,13 @@ button {
   z-index: 1;
   right: 32px;
   border-radius: 50%;
-  width: 75px;
-  height: 75px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 /* card container section */
 .card-container {
   display: grid;
@@ -151,7 +155,7 @@ button {
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: var(--background-color);
-  display: none;
+  /* display: none; */
 }
 
 .form-input input[type="text"],
@@ -212,9 +216,14 @@ button {
     width: 500px;
   }
   .add-book-btn {
-    position: static;
+    position: sticky;
     border-radius: 10px;
     width: auto;
     height: auto;
+    top: 16px;
+  }
+
+  .add-book-btn::after {
+    content: "NEW BOOK";
   }
 }
