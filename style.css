@@ -20,15 +20,29 @@ html {
 :root {
   --main-color: #111827;
   --secondary-color: #e5e7eb;
+  --card-border: #dad8da;
+  --background-color: white;
 }
-
+button {
+  cursor: pointer;
+  background-color: var(--background-color);
+  border: none;
+  outline: none;
+}
 .container {
   display: grid;
   grid-template-rows: 75px 1fr 75px;
   min-height: 100vh;
 }
 
-.header-container {
+.header-container,
+.content-container,
+.footer-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.header-section {
   background-color: var(--main-color);
   display: flex;
   justify-content: center;
@@ -37,6 +51,10 @@ html {
 
 .header-text {
   color: var(--secondary-color);
+}
+
+.content-section {
+  background-color: var(--background-color);
 }
 
 .content-container {
@@ -59,13 +77,25 @@ html {
   color: var(--secondary-color);
   outline: inherit;
   border: 1px solid var(--main-color);
-  border-radius: 8px;
+  border-radius: 10px;
 }
 
-.add-book-btn:hover {
+.add-book-btn:hover,
+.form-submit-btn:hover,
+.form-back-btn:hover {
   opacity: 0.7;
 }
 
+.add-book-btn {
+  position: fixed;
+  bottom: 32px;
+  z-index: 1;
+  right: 32px;
+  border-radius: 50%;
+  width: 75px;
+  height: 75px;
+}
+/* card container section */
 .card-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -73,11 +103,11 @@ html {
 }
 
 .card {
-  border: 1px solid #dad8da;
+  border: 1px solid var(--card-border);
   padding: 32px;
   display: grid;
   gap: 16px;
-  text-align: center;
+  /* text-align: center; */
   position: relative;
   box-shadow: -10px 10px var(--main-color);
   border-radius: 8px;
@@ -94,33 +124,34 @@ html {
   position: absolute;
   top: 12px;
   right: 12px;
-  cursor: pointer;
-  background-color: white;
-  border: none;
-  outline: none;
 }
 
-.card > button > span {
+.reading-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.toggle-reading-checkbox {
+  vertical-align: middle;
+}
+
+.card > button > span,
+.toggle-reading-checkbox {
   font-size: 1rem;
 }
 
-.footer-container {
-  grid-row: 3/4;
-  background-color: var(--main-color);
-  color: var(--secondary-color);
-}
-
+/* form section */
 .form-input {
   border: 1px solid var(--main-color);
   border-radius: 8px;
   padding: 32px 16px;
-  /* width: 80%; */
+  width: 80%;
   position: absolute;
-  /* display: none; */
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
+  background-color: var(--background-color);
+  display: none;
 }
 
 .form-input input[type="text"],
@@ -128,38 +159,22 @@ html {
   padding: 4px;
 }
 
-.form-input > div > label,
-.form-input > div > span {
-  /* display: inline-block; */
-  /* width: 100px; */
-  /* margin-bottom: 16px; */
-}
-
 .form-input > div {
   display: grid;
   grid-template-columns: 100px 1fr;
-  /* gap: 16px;
-  row-gap: 16px; */
   align-items: center;
   margin-bottom: 16px;
-}
-.form-input > div:last-child {
-  margin-bottom: 0;
-}
-
-.form-input > div > input {
-  /* width: 60%; */
 }
 
 .radio-container {
   display: inline-flex;
-  justify-content: center;
   align-items: center;
   gap: 8px;
   margin-bottom: 0;
 }
 
-.form-btn-container {
+.form-input .form-btn-container {
+  grid-column: 1/3;
   display: flex;
   justify-content: center;
   gap: 50px;
@@ -169,4 +184,37 @@ html {
 .form-btn-container > button {
   width: 100px;
   margin-bottom: 0px;
+}
+
+/* footer section */
+.footer-section {
+  grid-row: 3/4;
+  background-color: var(--main-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-container {
+  color: var(--secondary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+.github-logo-img {
+  width: 40px;
+  height: auto;
+}
+
+@media screen and (min-width: 800px) {
+  .form-input {
+    width: 500px;
+  }
+  .add-book-btn {
+    position: static;
+    border-radius: 10px;
+    width: auto;
+    height: auto;
+  }
 }
