@@ -21,7 +21,7 @@ inputPagesNum.addEventListener("input", (e) => {
 });
 
 function toggleDisplayForm() {
-  console.log(`ToggleDisplay!!`);
+  
   if (form.style.display === "" || form.style.display === "none") {
     form.style.display = "block";
   } else {
@@ -151,7 +151,6 @@ function createCard(item) {
   );
   const readingStatusText = document.createElement("div");
   readingStatusText.classList.add("reading-status-text");
-  console.log(item.readStatus)
   if (item.readStatus === "read") {
     btnSpanCheckbox.textContent = `check_box`;
     readingStatusText.textContent = "Read";
@@ -182,6 +181,11 @@ function createCard(item) {
 
 function removeCard(e) {
   cardContainer.removeChild(e.target.closest(".card"));
+  let cardIndex = Number(e.target.closest('.card').getAttribute('data-index'))
+  let objectIndex = library.map(e => e.dataIndex).indexOf(cardIndex)
+  library.splice(objectIndex,1)
+
 }
 
-library.forEach(createCard);
+// library.forEach(createCard);
+
