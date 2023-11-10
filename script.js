@@ -86,6 +86,14 @@ function addBookToLibrary(book) {
   library.push(book);
 }
 
+// function clearInput() {
+//   document.querySelector("#book_title").value =''
+//   document.querySelector("#book_author").value = ''
+//   document.querySelector("#book_page_no").value = ''
+//   document.querySelector("#read").checked = false
+//   document.querySelector("#unread").checked = false
+// }
+
 newBookFormSubmitBtn.addEventListener("click", (e) => {
   // e.preventDefault();
   if (form.checkValidity()) {
@@ -100,6 +108,7 @@ newBookFormSubmitBtn.addEventListener("click", (e) => {
     addBookToLibrary(book);
     createCard(book);
     toggleDisplayForm();
+    newBookform.reset()
   }
 });
 
@@ -142,10 +151,11 @@ function createCard(item) {
   );
   const readingStatusText = document.createElement("div");
   readingStatusText.classList.add("reading-status-text");
-  if (item.readingStatus === "read") {
+  console.log(item.readStatus)
+  if (item.readStatus === "read") {
     btnSpanCheckbox.textContent = `check_box`;
     readingStatusText.textContent = "Read";
-  } else {
+  } else if(item.readStatus === 'unread'){
     btnSpanCheckbox.textContent = `check_box_outline_blank`;
     readingStatusText.textContent = "Unread";
   }
