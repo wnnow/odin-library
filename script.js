@@ -9,6 +9,7 @@ const newbookFormSubmitBtn = document.querySelector(".form-submit-btn");
 const newBookform = document.querySelector("#new-book-form");
 const cardContainer = document.querySelector(".card-container");
 const library = [];
+let dataIndex = 0;
 
 function toggleDisplayForm() {
   console.log(`ToggleDisplay!!`);
@@ -46,9 +47,6 @@ function toggleReadingStatusCheckBox(e, dataset) {
 function updateReadingStatus(e) {
   let card = e.target.closest(".card");
   let dataset = card.dataset.read;
-  //   let readingStatusText = e.target.closest(
-  //     'button[type="button"]'
-  //   ).nextElementSibling;
   let readingStatusText;
   if (e.target === undefined) {
     readingStatusText = e.closest('button[type="button"]').nextElementSibling;
@@ -63,7 +61,7 @@ function updateReadingStatus(e) {
 readingCheckboxSpans.forEach((e) =>
   e.addEventListener("click", updateReadingStatus)
 );
-// newbookFormSubmitBtn.addEventListener("click", toggleDisplayForm);
+
 addBookBtn.addEventListener("click", toggleDisplayForm);
 formBackBtn.addEventListener("click", toggleDisplayForm);
 
@@ -72,6 +70,7 @@ function Book(title, author, pages, readStatus) {
   this.author = author;
   this.pages = pages;
   this.readStatus = readStatus;
+  this.dataIndex = dataIndex++;
 }
 
 function addBookToLibrary(book) {
@@ -79,7 +78,7 @@ function addBookToLibrary(book) {
 }
 
 newbookFormSubmitBtn.addEventListener("click", (e) => {
-  e.preventDefault();
+  // e.preventDefault();
   if (form.checkValidity()) {
     const bookTitle = document.querySelector("#book_title").value;
     const bookAuthor = document.querySelector("#book_author").value;
@@ -90,6 +89,8 @@ newbookFormSubmitBtn.addEventListener("click", (e) => {
     const book = new Book(bookTitle, bookAuthor, pages, readingStatus);
 
     addBookToLibrary(book);
+    createCard(book);
+    toggleDisplayForm();
   }
 });
 
@@ -105,6 +106,7 @@ function createCard(item) {
   } else {
     card.setAttribute(`data-read`, `true`);
   }
+  card.setAttribute("data-index", `${item.dataIndex}`);
 
   const bookTitle = document.createElement("div");
   bookTitle.classList.add("book-title");
@@ -142,6 +144,7 @@ function createCard(item) {
   readingStatus.appendChild(btnSpanCheckboxContainer);
   readingStatus.appendChild(readingStatusText);
   const btnClosingSpanContainer = document.createElement("button");
+  btnClosingSpanContainer.setAttribute("id", "close-btn");
   const closingSpan = document.createElement("span");
 
   closingSpan.classList.add("material-symbols-outlined");
@@ -154,7 +157,12 @@ function createCard(item) {
   card.appendChild(btnClosingSpanContainer);
   cardContainer.appendChild(card);
 
+  btnClosingSpanContainer.addEventListener("click", removeCard);
   btnSpanCheckbox.addEventListener("click", updateReadingStatus);
+}
+
+function removeCard(e) {
+  cardContainer.removeChild(e.target.closest(".card"));
 }
 
 library.forEach(createCard);
