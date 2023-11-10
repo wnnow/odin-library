@@ -129,7 +129,12 @@ button {
   top: 12px;
   right: 12px;
 }
-
+.book-title,
+.book-author {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
 .reading-status {
   display: flex;
   align-items: center;

@@ -4,12 +4,21 @@ const readingCheckboxSpans = Array.from(
   document.querySelectorAll(".toggle-reading-checkbox")
 );
 const formBackBtn = document.querySelector("button.form-back-btn");
-const newbookFormSubmitBtn = document.querySelector(".form-submit-btn");
+const newBookFormSubmitBtn = document.querySelector(".form-submit-btn");
 
 const newBookform = document.querySelector("#new-book-form");
 const cardContainer = document.querySelector(".card-container");
+const inputPagesNum = document.querySelector("#book_page_no");
 const library = [];
 let dataIndex = 0;
+
+inputPagesNum.addEventListener("input", (e) => {
+  let inputValue = e.target.value;
+  let maxLength = e.target.maxLength;
+  if (inputValue.length > maxLength) {
+    e.target.value = inputValue.slice(0, maxLength);
+  }
+});
 
 function toggleDisplayForm() {
   console.log(`ToggleDisplay!!`);
@@ -77,7 +86,7 @@ function addBookToLibrary(book) {
   library.push(book);
 }
 
-newbookFormSubmitBtn.addEventListener("click", (e) => {
+newBookFormSubmitBtn.addEventListener("click", (e) => {
   // e.preventDefault();
   if (form.checkValidity()) {
     const bookTitle = document.querySelector("#book_title").value;
