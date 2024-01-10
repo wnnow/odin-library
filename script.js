@@ -14,8 +14,6 @@ inputPagesNum.addEventListener("input", (e) => {
 const form = document.querySelector(".form-input");
 
 function toggleDisplayForm() {
-  debugger; // This will pause execution here
-  console.log("Button clicked! Event listener is working.");
   if (form.style.display === "" || form.style.display === "none") {
     form.style.display = "block";
   } else {
@@ -23,8 +21,23 @@ function toggleDisplayForm() {
   }
 }
 
+function toggleReadingStatusInLibrary(e, dataset) {
+  let cardIndex = Number(e.getAttribute("data-index"));
+
+  // let _readingStatus = e.getAttribute("data-read");
+
+  let objectIndex = library.map((e) => e.dataIndex).indexOf(cardIndex);
+
+  if (dataset === "true") {
+    library[objectIndex].readStatus = "unread";
+  } else {
+    library[objectIndex].readStatus = "read";
+  }
+}
+
 // reading status
 function toggleReadingDataSet(e, dataset) {
+  toggleReadingStatusInLibrary(e, dataset);
   if (dataset === "true") {
     e.dataset.read = "false";
   } else {
@@ -80,12 +93,22 @@ const formBackBtn = document.querySelector("button.form-back-btn");
 
 formBackBtn.addEventListener("click", toggleDisplayForm);
 
-function Book(title, author, pages, readStatus) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.readStatus = readStatus;
-  this.dataIndex = dataIndex++;
+// function Book(title, author, pages, readStatus) {
+//   this.title = title;
+//   this.author = author;
+//   this.pages = pages;
+//   this.readStatus = readStatus;
+//   this.dataIndex = dataIndex++;
+// }
+
+class Book {
+  constructor(title, author, pages, readStatus) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.readStatus = readStatus;
+    this.dataIndex = dataIndex++;
+  }
 }
 
 function addBookToLibrary(book) {
@@ -199,28 +222,3 @@ function removeCard(e) {
 
   library.splice(objectIndex, 1);
 }
-
-// class Book {
-//   static dataIndex = 0;
-
-//   constructor(title, author, pages, readStatus) {
-//     this.title = title;
-//     this.author = author;
-//     this.pages = pages;
-//     this.readStatus = readStatus;
-//     this.dataIndex = dataIndex++;
-//   }
-// }
-
-// class Library extends Book {
-//   static #books = [];
-//   constructor() {
-//     super();
-//   }
-
-//   static addBook(book) {
-//     Library.#books.push(book);
-//   }
-
-//   static removeCard(e) {}
-// }
