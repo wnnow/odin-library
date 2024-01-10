@@ -1,16 +1,7 @@
-const addBookBtn = document.querySelector(".add-book-btn");
-const form = document.querySelector(".form-input");
-const readingCheckboxSpans = Array.from(
-  document.querySelectorAll(".toggle-reading-checkbox")
-);
-const formBackBtn = document.querySelector("button.form-back-btn");
-const newBookFormSubmitBtn = document.querySelector(".form-submit-btn");
-
-const newBookform = document.querySelector("#new-book-form");
-const cardContainer = document.querySelector(".card-container");
-const inputPagesNum = document.querySelector("#book_page_no");
 const library = [];
 let dataIndex = 0;
+
+const inputPagesNum = document.querySelector("#book_page_no");
 
 inputPagesNum.addEventListener("input", (e) => {
   let inputValue = e.target.value;
@@ -20,8 +11,9 @@ inputPagesNum.addEventListener("input", (e) => {
   }
 });
 
+const form = document.querySelector(".form-input");
+
 function toggleDisplayForm() {
-  
   if (form.style.display === "" || form.style.display === "none") {
     form.style.display = "block";
   } else {
@@ -29,6 +21,7 @@ function toggleDisplayForm() {
   }
 }
 
+// reading status
 function toggleReadingDataSet(e, dataset) {
   if (dataset === "true") {
     e.dataset.read = "false";
@@ -53,10 +46,12 @@ function toggleReadingStatusCheckBox(e, dataset) {
   }
 }
 
+// update status sector
 function updateReadingStatus(e) {
   let card = e.target.closest(".card");
   let dataset = card.dataset.read;
   let readingStatusText;
+
   if (e.target === undefined) {
     readingStatusText = e.closest('button[type="button"]').nextElementSibling;
   } else {
@@ -67,11 +62,20 @@ function updateReadingStatus(e) {
   toggleReadingStatusText(readingStatusText, dataset);
 }
 
+const readingCheckboxSpans = Array.from(
+  document.querySelectorAll(".toggle-reading-checkbox")
+);
+
 readingCheckboxSpans.forEach((e) =>
   e.addEventListener("click", updateReadingStatus)
 );
 
+const addBookBtn = document.querySelector(".add-book-btn");
+
 addBookBtn.addEventListener("click", toggleDisplayForm);
+
+const formBackBtn = document.querySelector("button.form-back-btn");
+
 formBackBtn.addEventListener("click", toggleDisplayForm);
 
 function Book(title, author, pages, readStatus) {
@@ -94,6 +98,8 @@ function addBookToLibrary(book) {
 //   document.querySelector("#unread").checked = false
 // }
 
+const newBookFormSubmitBtn = document.querySelector(".form-submit-btn");
+
 newBookFormSubmitBtn.addEventListener("click", (e) => {
   // e.preventDefault();
   if (form.checkValidity()) {
@@ -108,9 +114,11 @@ newBookFormSubmitBtn.addEventListener("click", (e) => {
     addBookToLibrary(book);
     createCard(book);
     toggleDisplayForm();
-    newBookform.reset()
+    newBookform.reset();
   }
 });
+
+const newBookform = document.querySelector("#new-book-form");
 
 newBookform.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -119,11 +127,13 @@ newBookform.addEventListener("submit", (e) => {
 function createCard(item) {
   const card = document.createElement("div");
   card.classList.add("card");
+
   if (item.readStatus === "unread") {
     card.setAttribute(`data-read`, `false`);
   } else {
     card.setAttribute(`data-read`, `true`);
   }
+
   card.setAttribute("data-index", `${item.dataIndex}`);
 
   const bookTitle = document.createElement("div");
@@ -149,20 +159,26 @@ function createCard(item) {
     "material-symbols-outlined",
     "toggle-reading-checkbox"
   );
+
   const readingStatusText = document.createElement("div");
+
   readingStatusText.classList.add("reading-status-text");
+
   if (item.readStatus === "read") {
     btnSpanCheckbox.textContent = `check_box`;
     readingStatusText.textContent = "Read";
-  } else if(item.readStatus === 'unread'){
+  } else if (item.readStatus === "unread") {
     btnSpanCheckbox.textContent = `check_box_outline_blank`;
     readingStatusText.textContent = "Unread";
   }
+
   btnSpanCheckboxContainer.append(btnSpanCheckbox);
   readingStatus.appendChild(btnSpanCheckboxContainer);
   readingStatus.appendChild(readingStatusText);
+
   const btnClosingSpanContainer = document.createElement("button");
   btnClosingSpanContainer.setAttribute("id", "close-btn");
+
   const closingSpan = document.createElement("span");
 
   closingSpan.classList.add("material-symbols-outlined");
@@ -179,13 +195,38 @@ function createCard(item) {
   btnSpanCheckbox.addEventListener("click", updateReadingStatus);
 }
 
+const cardContainer = document.querySelector(".card-container");
+
 function removeCard(e) {
   cardContainer.removeChild(e.target.closest(".card"));
-  let cardIndex = Number(e.target.closest('.card').getAttribute('data-index'))
-  let objectIndex = library.map(e => e.dataIndex).indexOf(cardIndex)
-  library.splice(objectIndex,1)
 
+  let cardIndex = Number(e.target.closest(".card").getAttribute("data-index"));
+  let objectIndex = library.map((e) => e.dataIndex).indexOf(cardIndex);
+
+  library.splice(objectIndex, 1);
 }
 
 // library.forEach(createCard);
 
+// class Book {
+//   static dataIndex = 0;
+
+//   constructor(title, author, pages, readStatus) {
+//     this.title = title;
+//     this.author = author;
+//     this.pages = pages;
+//     this.readStatus = readStatus;
+//     this.dataIndex = dataIndex++;
+//   }
+// }
+
+// class Library extends Book {
+//   #books = [];
+//   constructor() {
+//     super();
+//   }
+
+//   addBook(book) {
+//     this.#books.push(book);
+//   }
+// }

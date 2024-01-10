@@ -97,6 +97,8 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
+  color: var(--main-color);
+  background-color: var(--secondary-color);
 }
 
 /* card container section */
