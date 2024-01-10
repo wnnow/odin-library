@@ -14,6 +14,8 @@ inputPagesNum.addEventListener("input", (e) => {
 const form = document.querySelector(".form-input");
 
 function toggleDisplayForm() {
+  debugger; // This will pause execution here
+  console.log("Button clicked! Event listener is working.");
   if (form.style.display === "" || form.style.display === "none") {
     form.style.display = "block";
   } else {
@@ -89,14 +91,6 @@ function Book(title, author, pages, readStatus) {
 function addBookToLibrary(book) {
   library.push(book);
 }
-
-// function clearInput() {
-//   document.querySelector("#book_title").value =''
-//   document.querySelector("#book_author").value = ''
-//   document.querySelector("#book_page_no").value = ''
-//   document.querySelector("#read").checked = false
-//   document.querySelector("#unread").checked = false
-// }
 
 const newBookFormSubmitBtn = document.querySelector(".form-submit-btn");
 
@@ -206,8 +200,6 @@ function removeCard(e) {
   library.splice(objectIndex, 1);
 }
 
-// library.forEach(createCard);
-
 // class Book {
 //   static dataIndex = 0;
 
@@ -221,12 +213,14 @@ function removeCard(e) {
 // }
 
 // class Library extends Book {
-//   #books = [];
+//   static #books = [];
 //   constructor() {
 //     super();
 //   }
 
-//   addBook(book) {
-//     this.#books.push(book);
+//   static addBook(book) {
+//     Library.#books.push(book);
 //   }
+
+//   static removeCard(e) {}
 // }
