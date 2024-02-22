@@ -1,7 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 .material-symbols-outlined {
-  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
 html {
@@ -14,7 +14,7 @@ html {
   box-sizing: inherit;
   margin: 0;
   padding: 0;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 :root {
@@ -119,10 +119,10 @@ button {
   border-radius: 8px;
 }
 
-.card[data-read="true"] {
+.card[data-read='true'] {
   box-shadow: -10px 10px var(--main-color);
 }
-.card[data-read="false"] {
+.card[data-read='false'] {
   box-shadow: -10px 10px rgb(204, 83, 83);
 }
 
@@ -165,18 +165,23 @@ button {
   display: none;
 }
 
-.form-input input[type="text"],
-.form-input input[type="number"] {
+.form-input input[type='text'],
+.form-input input[type='number'] {
   padding: 4px;
+  border: 1px solid black;
+  border-radius: 5px;
 }
 
 .form-input > div {
   display: grid;
   grid-template-columns: 100px 1fr;
   align-items: center;
+  margin-bottom: 14px;
+  row-gap: 2px;
+}
+.input-status-container {
   margin-bottom: 16px;
 }
-
 .radio-container {
   display: inline-flex;
   align-items: center;
@@ -218,6 +223,18 @@ button {
   height: auto;
 }
 
+.error {
+  grid-column: 2/3;
+  grid-row: 2/3;
+  font-size: 0.8rem;
+  color: rgb(205, 0, 0);
+  visibility: hidden;
+}
+
+.invalid-active {
+  visibility: visible;
+}
+
 @media screen and (min-width: 800px) {
   .form-input {
     width: 500px;
@@ -231,6 +248,6 @@ button {
   }
 
   .add-book-btn::after {
-    content: "NEW BOOK";
+    content: 'NEW BOOK';
   }
 }

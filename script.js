@@ -1,9 +1,9 @@
 const library = [];
 let dataIndex = 0;
 
-const inputPagesNum = document.querySelector("#book_page_no");
+const inputPagesNum = document.querySelector('#book_page_no');
 
-inputPagesNum.addEventListener("input", (e) => {
+inputPagesNum.addEventListener('input', (e) => {
   let inputValue = e.target.value;
   let maxLength = e.target.maxLength;
   if (inputValue.length > maxLength) {
@@ -11,59 +11,65 @@ inputPagesNum.addEventListener("input", (e) => {
   }
 });
 
-const form = document.querySelector(".form-input");
+const form = document.querySelector('#new-book-form');
+
+form.addEventListener('submit', (event) => {
+  if (!form.checkValidity()) {
+    event.preventDefault();
+  }
+});
 
 function toggleDisplayForm() {
-  if (form.style.display === "" || form.style.display === "none") {
-    form.style.display = "block";
+  if (form.style.display === '' || form.style.display === 'none') {
+    form.style.display = 'block';
   } else {
-    form.style.display = "none";
+    form.style.display = 'none';
   }
 }
 
 function toggleReadingStatusInLibrary(e, dataset) {
-  let cardIndex = Number(e.getAttribute("data-index"));
+  let cardIndex = Number(e.getAttribute('data-index'));
 
   // let _readingStatus = e.getAttribute("data-read");
 
   let objectIndex = library.map((e) => e.dataIndex).indexOf(cardIndex);
 
-  if (dataset === "true") {
-    library[objectIndex].readStatus = "unread";
+  if (dataset === 'true') {
+    library[objectIndex].readStatus = 'unread';
   } else {
-    library[objectIndex].readStatus = "read";
+    library[objectIndex].readStatus = 'read';
   }
 }
 
 // reading status
 function toggleReadingDataSet(e, dataset) {
   toggleReadingStatusInLibrary(e, dataset);
-  if (dataset === "true") {
-    e.dataset.read = "false";
+  if (dataset === 'true') {
+    e.dataset.read = 'false';
   } else {
-    e.dataset.read = "true";
+    e.dataset.read = 'true';
   }
 }
 
 function toggleReadingStatusText(e, dataset) {
-  if (dataset === "true") {
-    e.textContent = "Unread";
+  if (dataset === 'true') {
+    e.textContent = 'Unread';
   } else {
-    e.textContent = "Read";
+    e.textContent = 'Read';
   }
 }
 
 function toggleReadingStatusCheckBox(e, dataset) {
-  if (dataset === "false") {
-    e.target.textContent = "check_box";
+  if (dataset === 'false') {
+    e.target.textContent = 'check_box';
   } else {
-    e.target.textContent = "check_box_outline_blank";
+    e.target.textContent = 'check_box_outline_blank';
   }
 }
 
 // update status sector
 function updateReadingStatus(e) {
-  let card = e.target.closest(".card");
+  let card = e.target.closest('.card');
   let dataset = card.dataset.read;
   let readingStatusText;
 
@@ -78,28 +84,20 @@ function updateReadingStatus(e) {
 }
 
 const readingCheckboxSpans = Array.from(
-  document.querySelectorAll(".toggle-reading-checkbox")
+  document.querySelectorAll('.toggle-reading-checkbox')
 );
 
 readingCheckboxSpans.forEach((e) =>
-  e.addEventListener("click", updateReadingStatus)
+  e.addEventListener('click', updateReadingStatus)
 );
 
-const addBookBtn = document.querySelector(".add-book-btn");
+const addBookBtn = document.querySelector('.add-book-btn');
 
-addBookBtn.addEventListener("click", toggleDisplayForm);
+addBookBtn.addEventListener('click', toggleDisplayForm);
 
-const formBackBtn = document.querySelector("button.form-back-btn");
+const formBackBtn = document.querySelector('button.form-back-btn');
 
-formBackBtn.addEventListener("click", toggleDisplayForm);
-
-// function Book(title, author, pages, readStatus) {
-//   this.title = title;
-//   this.author = author;
-//   this.pages = pages;
-//   this.readStatus = readStatus;
-//   this.dataIndex = dataIndex++;
-// }
+formBackBtn.addEventListener('click', toggleDisplayForm);
 
 class Book {
   constructor(title, author, pages, readStatus) {
@@ -115,14 +113,13 @@ function addBookToLibrary(book) {
   library.push(book);
 }
 
-const newBookFormSubmitBtn = document.querySelector(".form-submit-btn");
+const newBookFormSubmitBtn = document.querySelector('.form-submit-btn');
 
-newBookFormSubmitBtn.addEventListener("click", (e) => {
-  // e.preventDefault();
+newBookFormSubmitBtn.addEventListener('click', (e) => {
   if (form.checkValidity()) {
-    const bookTitle = document.querySelector("#book_title").value;
-    const bookAuthor = document.querySelector("#book_author").value;
-    const pages = document.querySelector("#book_page_no").value;
+    const bookTitle = document.querySelector('#book_title').value;
+    const bookAuthor = document.querySelector('#book_author').value;
+    const pages = document.querySelector('#book_page_no').value;
     const readingStatus = document.querySelector(
       'input[name="reading_status"]:checked'
     ).value;
@@ -131,75 +128,69 @@ newBookFormSubmitBtn.addEventListener("click", (e) => {
     addBookToLibrary(book);
     createCard(book);
     toggleDisplayForm();
-    newBookform.reset();
+    form.reset();
   }
 });
 
-const newBookform = document.querySelector("#new-book-form");
-
-newBookform.addEventListener("submit", (e) => {
-  e.preventDefault();
-});
-
 function createCard(item) {
-  const card = document.createElement("div");
-  card.classList.add("card");
+  const card = document.createElement('div');
+  card.classList.add('card');
 
-  if (item.readStatus === "unread") {
+  if (item.readStatus === 'unread') {
     card.setAttribute(`data-read`, `false`);
   } else {
     card.setAttribute(`data-read`, `true`);
   }
 
-  card.setAttribute("data-index", `${item.dataIndex}`);
+  card.setAttribute('data-index', `${item.dataIndex}`);
 
-  const bookTitle = document.createElement("div");
-  bookTitle.classList.add("book-title");
+  const bookTitle = document.createElement('div');
+  bookTitle.classList.add('book-title');
   bookTitle.textContent = `${item.title}`;
 
-  const bookAuthor = document.createElement("div");
-  bookAuthor.classList.add("book-author");
+  const bookAuthor = document.createElement('div');
+  bookAuthor.classList.add('book-author');
   bookAuthor.textContent = `${item.author}`;
 
-  const pages = document.createElement("div");
-  pages.classList.add("pages");
+  const pages = document.createElement('div');
+  pages.classList.add('pages');
   pages.textContent = `${item.pages}`;
 
-  const readingStatus = document.createElement("div");
-  readingStatus.classList.add("reading-status");
+  const readingStatus = document.createElement('div');
+  readingStatus.classList.add('reading-status');
 
-  const btnSpanCheckboxContainer = document.createElement("button");
-  btnSpanCheckboxContainer.setAttribute("type", "submit");
+  const btnSpanCheckboxContainer = document.createElement('button');
+  btnSpanCheckboxContainer.setAttribute('type', 'submit');
 
-  const btnSpanCheckbox = document.createElement("span");
+  const btnSpanCheckbox = document.createElement('span');
   btnSpanCheckbox.classList.add(
-    "material-symbols-outlined",
-    "toggle-reading-checkbox"
+    'material-symbols-outlined',
+    'toggle-reading-checkbox'
   );
 
-  const readingStatusText = document.createElement("div");
+  const readingStatusText = document.createElement('div');
 
-  readingStatusText.classList.add("reading-status-text");
+  readingStatusText.classList.add('reading-status-text');
 
-  if (item.readStatus === "read") {
+  if (item.readStatus === 'read') {
     btnSpanCheckbox.textContent = `check_box`;
-    readingStatusText.textContent = "Read";
-  } else if (item.readStatus === "unread") {
+    readingStatusText.textContent = 'Read';
+  } else if (item.readStatus === 'unread') {
     btnSpanCheckbox.textContent = `check_box_outline_blank`;
-    readingStatusText.textContent = "Unread";
+    readingStatusText.textContent = 'Unread';
   }
 
   btnSpanCheckboxContainer.append(btnSpanCheckbox);
   readingStatus.appendChild(btnSpanCheckboxContainer);
   readingStatus.appendChild(readingStatusText);
 
-  const btnClosingSpanContainer = document.createElement("button");
-  btnClosingSpanContainer.setAttribute("id", "close-btn");
+  const btnClosingSpanContainer = document.createElement('button');
+  btnClosingSpanContainer.setAttribute('id', 'close-btn');
 
-  const closingSpan = document.createElement("span");
+  const closingSpan = document.createElement('span');
 
-  closingSpan.classList.add("material-symbols-outlined");
-  closingSpan.textContent = "close";
+  closingSpan.classList.add('material-symbols-outlined');
+  closingSpan.textContent = 'close';
   btnClosingSpanContainer.appendChild(closingSpan);
   card.appendChild(bookTitle);
   card.appendChild(bookAuthor);
@@ -208,17 +199,44 @@ function createCard(item) {
   card.appendChild(btnClosingSpanContainer);
   cardContainer.appendChild(card);
 
-  btnClosingSpanContainer.addEventListener("click", removeCard);
-  btnSpanCheckbox.addEventListener("click", updateReadingStatus);
+  btnClosingSpanContainer.addEventListener('click', removeCard);
+  btnSpanCheckbox.addEventListener('click', updateReadingStatus);
 }
 
-const cardContainer = document.querySelector(".card-container");
+const cardContainer = document.querySelector('.card-container');
 
 function removeCard(e) {
-  cardContainer.removeChild(e.target.closest(".card"));
+  cardContainer.removeChild(e.target.closest('.card'));
 
-  let cardIndex = Number(e.target.closest(".card").getAttribute("data-index"));
+  let cardIndex = Number(e.target.closest('.card').getAttribute('data-index'));
   let objectIndex = library.map((e) => e.dataIndex).indexOf(cardIndex);
 
   library.splice(objectIndex, 1);
 }
+
+const inputBookTitle = document.querySelector('#book_title');
+const errorTitle = document.querySelector('#book_title+span.error');
+inputBookTitle.addEventListener('input', (event) => {
+  if (!inputBookTitle.checkValidity()) {
+    errorTitle.textContent = 'Must be 2-50 characters';
+    errorTitle.classList.add('invalid-active');
+    inputBookTitle.style.border = '1px solid red';
+  } else {
+    errorTitle.classList.remove('invalid-active');
+    inputBookTitle.style.border = '1px solid black';
+  }
+});
+
+const inputBookAuthor = document.querySelector('#book_author');
+const errorAuthor = document.querySelector('#book_author+span.error');
+
+inputBookAuthor.addEventListener('input', (event) => {
+  if (!inputBookAuthor.checkValidity()) {
+    errorAuthor.textContent = 'Must be 2-50 characters';
+    errorAuthor.classList.add('invalid-active');
+    inputBookAuthor.style.border = '1px solid red';
+  } else {
+    errorAuthor.classList.remove('invalid-active');
+    inputBookAuthor.style.border = '1px solid black';
+  }
+});

@@ -47,9 +47,10 @@
               name="book_title"
               placeholder="Harry Potter and the Philosopher's Stone"
               required
-              min="1"
-              max="1000"
+              minlength="2"
+              maxlength="50"
             />
+            <span class="error">test</span>
           </div>
           <div>
             <label for="book_author">Author</label>
@@ -59,9 +60,9 @@
               name="book_author"
               placeholder="J. K. Rowling"
               required
-              minlength="1"
-              maxlength="1000"
-            />
+              minlength="2"
+              maxlength="50"
+            /><span class="error">test</span>
           </div>
 
           <div>
@@ -73,9 +74,9 @@
               placeholder="231"
               required
               min="1"
-              max="1000000"
-              maxlength="6"
-            />
+              max="100000"
+              maxlength="5"
+            /><span class="error">test</span>
           </div>
           <div>
             <span class="reading-status-form-text">Read status</span>
